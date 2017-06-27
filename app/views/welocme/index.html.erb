@@ -1,2 +1,40 @@
 <h1>Welocme#index</h1>
 <p>Find me in app/views/welocme/index.html.erb</p>
+
+
+<h1>welcome to smarthrms</h1>
+<div>
+<div id="total_chat"  style="width:400px;">
+	
+</div>
+</br>
+
+<%= text_area_tag "msg" %>
+</div>
+
+
+<script>
+  $(function(){
+    $("#msg").keypress(function(event) {
+       if (event.which == 13) {
+          event.preventDefault();
+          if ($(this).val() != " ")
+          {
+           //$(this).closest('form').submit();
+           str = $(this).val()
+          $.post("/ai"+"?msg="+str, function(data, status){
+          	var previous_chat = $("#total_chat").val();
+            bot_response = data.response.result.fulfillment.speech
+            console.log(data.response);
+            var output = "<div align='right' style='background-color:#F5E1E1;'>"+previous_chat+"</br>"+str+"</div>"+"</br>"+"<div align='left' style='background-color:#dff9f9;'>"+bot_response+"</div></br>";
+             $("#msg").val("")
+              $('#total_chat').append(output) 
+             
+         });
+
+       }
+       }
+    });
+  })
+</script>
+
