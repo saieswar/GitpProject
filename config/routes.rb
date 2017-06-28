@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # root 'welcome#index'
   root "welocme#index"
   match '/ai' => 'welocme#ai', via: [:post]
-  post '/webhook' => "welocme#test"
+  match '/webhook' => "welocme#test", via: [:post],defaults: {format: :json}
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
